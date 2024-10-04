@@ -1,0 +1,4 @@
+FROM mdernst/cf-ubuntu-jdk23
+WORKDIR /app
+COPY DataRetrievalApplication-0.1.jar DataRetrievalApplication.jar
+CMD ["java", "-jar", "DataRetrievalApplication.jar"]

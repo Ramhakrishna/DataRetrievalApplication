@@ -1,0 +1,33 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sairam 
+      POSTGRES_DB: mydatabase
+    ports:
+     - "5432:5432"
+    volumes:
+     - postgres_data:/var/lib/postgresql/data
+    networks:
+     - dataretrieval
+  app:  
+    image: spring-boot-postgres-app
+    depends_on:
+     - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: sairam
+    ports:  
+     - "9090:9090"
+    networks:
+     - dataretrieval
+  
+volumes: 
+  postgres_data:
+  
+networks:
+  dataretrieval:
+    driver: bridge
